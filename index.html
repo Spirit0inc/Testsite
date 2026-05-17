@@ -3,539 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>✨ НЕЙРОННАЯ ВСЕЛЕННАЯ ✨ | Интерактивный мозг</title>
+    <title>Нейронный Драйв</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; background: #020205; font-family: 'Segoe UI', sans-serif; }
+        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; }
 
-        body {
-            overflow: hidden;
-            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
-            background: radial-gradient(circle at center, #0a0015 0%, #000000 100%);
-        }
-
-        canvas {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: crosshair;
-        }
-
-        /* Стильный контент поверх */
         .content {
             position: absolute;
-            top: 50%;
+            top: 30px;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             text-align: center;
-            z-index: 20;
+            z-index: 10;
             color: white;
-            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
             pointer-events: none;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            padding: 35px 60px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            animation: floatIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes floatIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-                filter: blur(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-                filter: blur(0);
-            }
+            text-shadow: 0 0 15px rgba(100, 150, 255, 0.5);
         }
 
         h1 {
-            font-size: 3.8rem;
-            margin-bottom: 0.7rem;
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
-            background-size: 200% 200%;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: gradientShift 3s ease infinite;
-            letter-spacing: 3px;
+            letter-spacing: 8px;
+            font-weight: 900;
         }
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .subtitle {
-            font-size: 0.95rem;
-            opacity: 0.85;
-            margin-bottom: 1.2rem;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        .ip-box {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            padding: 10px 25px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            font-family: 'Courier New', monospace;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-        }
-
-        .stats-panel {
-            position: absolute;
-            bottom: 25px;
-            right: 25px;
-            z-index: 20;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: #a855f7;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            pointer-events: none;
-            text-shadow: 0 0 5px rgba(168, 85, 247, 0.5);
-        }
-
-        .stats-panel span {
-            color: #ec4899;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .instruction {
-            position: absolute;
-            bottom: 25px;
-            left: 25px;
-            z-index: 20;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.6);
-            pointer-events: none;
-            font-family: monospace;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .content { padding: 20px 30px; width: 85%; }
-            .subtitle { font-size: 0.65rem; }
-            .stats-panel { font-size: 0.6rem; padding: 8px 12px; }
-        }
-
-        /* Эффект ряби при клике */
-        .ripple {
+        .stats {
             position: fixed;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: rippleAnim 0.6s linear;
-            pointer-events: none;
-            z-index: 15;
-        }
-
-        @keyframes rippleAnim {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+            bottom: 20px;
+            right: 20px;
+            color: #4facfe;
+            font-size: 11px;
+            font-family: monospace;
+            z-index: 10;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
+
+    <canvas id="canvas"></canvas>
+
     <div class="content">
-        <h1>✨ NEURAL UNIVERSE ✨</h1>
-        <div class="subtitle">✧ ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ | СВЯЗИ | ЭНЕРГИЯ ✧</div>
-        <div class="ip-box">
-            🌌 SERVER IP: <strong id="ip">загрузка...</strong>
-        </div>
+        <h1>NEURAL SYSTЕM</h1>
+        <div style="opacity: 0.5; font-size: 0.9rem;">ACTIVE DYNAMICS ENGAGED</div>
     </div>
-    <div class="stats-panel">
-        ⚡ NEURONS: <span id="neuronCount">0</span> &nbsp;|&nbsp; 🔗 SYNAPSES: <span id="connectionCount">0</span>
-    </div>
-    <div class="instruction">
-        🖱️ ДВИГАЙ МЫШЬЮ — НЕЙРОНЫ ОТТАЛКИВАЮТСЯ | КЛИКАЙ — ВСПЫШКА ЭНЕРГИИ
+
+    <div class="stats">
+        SYSTEM_READY // N_COUNT: <span id="n_val">0</span>
     </div>
 
     <script>
-        // Получаем IP
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('ip').innerText = data.ip;
-            })
-            .catch(() => {
-                document.getElementById('ip').innerText = '127.0.0.1';
-            });
-
-        // --- НАСТРОЙКА CANVAS ---
-        const canvas = document.createElement('canvas');
-        document.body.appendChild(canvas);
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        let width, height, centerX, centerY;
+        const neurons = [];
+        
+        // --- ПАРАМЕТРЫ ДЛЯ ДРАЙВА ---
+        const NEURON_COUNT = 250;     // Больше нейронов
+        const CONNECT_DIST = 130;     // Дистанция связей
+        const ATTRACTION = 0.04;      // Сила возврата (стабильность формы)
+        const MOUSE_DIST = 180;       // Радиус испуга мышки
+        const MOUSE_PUSH = 0.8;       // Сила пинка от мышки (было 0.15)
+        const FRICTION = 0.88;        // Сопротивление (чтобы не летали вечно)
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            centerX = width / 2;
+            centerY = height / 2;
+            initNeurons();
         }
-        resizeCanvas();
-        
-        // --- ПАРАМЕТРЫ НЕЙРОСЕТИ ---
-        const NEURON_COUNT = 150;
-        const CONNECT_DISTANCE = 200;
-        const REPULSION_STRENGTH = 0.025;
-        const CENTER_ATTRACTION = 0.003;
-        const MOUSE_REPULSION = 0.12;
-        const MAX_SPEED = 1.8;
-        
-        // --- КЛАСС НЕЙРОНА (КРАСИВЫЙ) ---
+
         class Neuron {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 0.6;
-                this.vy = (Math.random() - 0.5) * 0.6;
-                this.baseX = x;
-                this.baseY = y;
-                this.size = 2 + Math.random() * 3.5;
-                this.pulse = Math.random() * Math.PI * 2;
-                this.activity = Math.random();
-                this.hue = 260 + Math.random() * 60; // 260-320 фиолетово-розовый
-                this.phase = Math.random() * Math.PI * 2;
+            constructor(bx, by) {
+                this.baseX = bx;
+                this.baseY = by;
+                this.x = bx;
+                this.y = by;
+                this.vx = 0;
+                this.vy = 0;
+                this.size = Math.random() * 2 + 1.5;
+                this.color = Math.random() > 0.5 ? '#4facfe' : '#00f2fe';
             }
-            
-            update(mouseX, mouseY, particles) {
-                // Возврат к базовой позиции
-                let dx = this.baseX - this.x;
-                let dy = this.baseY - this.y;
-                this.vx += dx * CENTER_ATTRACTION;
-                this.vy += dy * CENTER_ATTRACTION;
-                
-                // Отталкивание от мыши с плавным затуханием
-                if (mouseX !== null && mouseY !== null) {
-                    dx = this.x - mouseX;
-                    dy = this.y - mouseY;
-                    const dist = Math.hypot(dx, dy);
-                    if (dist < 180 && dist > 0) {
-                        const force = MOUSE_REPULSION * Math.pow(1 - dist / 180, 1.5);
-                        this.vx += (dx / dist) * force;
-                        this.vy += (dy / dist) * force;
-                        // При靠近 мыши активность растёт
-                        this.activity += 0.03 * (1 - dist / 180);
+
+            update(mx, my) {
+                // Возврат домой
+                this.vx += (this.baseX - this.x) * ATTRACTION;
+                this.vy += (this.baseY - this.y) * ATTRACTION;
+
+                // Убегаем от мышки (активная фаза)
+                if (mx !== null) {
+                    const dx = this.x - mx;
+                    const dy = this.y - my;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if (dist < MOUSE_DIST) {
+                        const force = (1 - dist / MOUSE_DIST) * MOUSE_PUSH;
+                        // Добавляем резкое ускорение
+                        this.vx += (dx / dist) * force * 15; 
+                        this.vy += (dy / dist) * force * 15;
                     }
                 }
-                
-                // Отталкивание от других нейронов
-                for (let other of neurons) {
-                    if (other === this) continue;
-                    dx = this.x - other.x;
-                    dy = this.y - other.y;
-                    const dist = Math.hypot(dx, dy);
-                    if (dist < 35 && dist > 0) {
-                        const force = REPULSION_STRENGTH * (1 - dist / 35);
-                        this.vx += (dx / dist) * force;
-                        this.vy += (dy / dist) * force;
-                    }
-                }
-                
-                // Ограничение скорости
-                const speed = Math.hypot(this.vx, this.vy);
-                if (speed > MAX_SPEED) {
-                    this.vx = (this.vx / speed) * MAX_SPEED;
-                    this.vy = (this.vy / speed) * MAX_SPEED;
-                }
-                
-                // Обновление позиции
+
                 this.x += this.vx;
                 this.y += this.vy;
-                
-                // Затухание скорости и активности
-                this.vx *= 0.985;
-                this.vy *= 0.985;
-                this.activity *= 0.995;
-                this.activity = Math.min(1, Math.max(0.15, this.activity));
-                
-                // Пульсация
-                this.pulse += 0.04;
-                this.phase += 0.02;
+                this.vx *= FRICTION;
+                this.vy *= FRICTION;
             }
-            
-            draw(ctx, time) {
-                const pulseSize = this.size + Math.sin(this.pulse) * 1.8;
-                const glowSize = pulseSize + 5 + Math.sin(this.pulse * 2) * 2;
-                
-                // Цвет на основе активности и hue
-                const sat = 60 + this.activity * 40;
-                const light = 55 + this.activity * 30;
-                const mainColor = `hsl(${this.hue}, ${sat}%, ${light}%)`;
-                const glowColor = `hsla(${this.hue}, ${sat}%, 65%, ${0.3 + this.activity * 0.3})`;
-                
-                // Внешнее свечение
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
-                ctx.fillStyle = glowColor;
-                ctx.fill();
-                
-                // Основной круг
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
-                
-                // Градиент
-                const grad = ctx.createRadialGradient(this.x - 2, this.y - 2, 0, this.x, this.y, pulseSize);
-                grad.addColorStop(0, `hsl(${this.hue}, ${sat}%, ${light + 15}%)`);
-                grad.addColorStop(0.6, mainColor);
-                grad.addColorStop(1, `hsla(${this.hue}, ${sat}%, ${light - 20}%, 0.5)`);
-                ctx.fillStyle = grad;
-                ctx.fill();
-                
-                // Ядро
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, pulseSize * 0.35, 0, Math.PI * 2);
-                ctx.fillStyle = `hsl(${this.hue}, ${sat}%, 85%)`;
-                ctx.fill();
-                
-                // Блик
-                ctx.beginPath();
-                ctx.arc(this.x - 1, this.y - 1, pulseSize * 0.15, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + Math.sin(this.pulse * 4) * 0.2})`;
-                ctx.fill();
-            }
-        }
-        
-        // --- КЛАСС ЧАСТИЦЫ ДЛЯ ДОП. ЭФФЕКТА ---
-        class EnergyParticle {
-            constructor(x, y, hue) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
-                this.life = 1;
-                this.hue = hue;
-                this.size = 2 + Math.random() * 3;
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life -= 0.02;
-                this.size *= 0.98;
-                return this.life > 0;
-            }
-            
-            draw(ctx) {
+
+            draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.life * 0.8})`;
+                ctx.fillStyle = this.color;
                 ctx.fill();
+                
+                // Добавим легкое свечение самим точкам
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
             }
         }
-        
-        // --- СОЗДАНИЕ НЕЙРОНОВ ---
-        const neurons = [];
-        const padding = 80;
-        
-        for (let i = 0; i < NEURON_COUNT; i++) {
-            const x = padding + Math.random() * (canvas.width - padding * 2);
-            const y = padding + Math.random() * (canvas.height - padding * 2);
-            neurons.push(new Neuron(x, y));
+
+        function initNeurons() {
+            neurons.length = 0;
+            for (let i = 0; i < NEURON_COUNT; i++) {
+                const side = Math.random() > 0.5 ? 1 : -1;
+                const angle = Math.random() * Math.PI * 2;
+                
+                // Увеличенный размер "мозга"
+                const rX = Math.random() * 220; 
+                const rY = Math.random() * 160;
+                
+                const bx = centerX + (Math.cos(angle) * rX) + (side * 70);
+                const by = centerY + (Math.sin(angle) * rY) * (1 + Math.cos(angle) * 0.3);
+                
+                neurons.push(new Neuron(bx, by));
+            }
+            document.getElementById('n_val').innerText = NEURON_COUNT;
         }
-        
-        document.getElementById('neuronCount').innerText = NEURON_COUNT;
-        
-        // --- ЧАСТИЦЫ ЭНЕРГИИ ---
-        let particles = [];
-        
-        // --- ОТРИСОВКА СВЯЗЕЙ С КРАСИВЫМИ ЭФФЕКТАМИ ---
-        function drawConnections(time) {
-            let connectionCount = 0;
-            
+
+        function drawLines() {
+            ctx.shadowBlur = 0; // Отключаем тени для линий ради скорости
             for (let i = 0; i < neurons.length; i++) {
                 for (let j = i + 1; j < neurons.length; j++) {
                     const n1 = neurons[i];
                     const n2 = neurons[j];
                     const dx = n1.x - n2.x;
                     const dy = n1.y - n2.y;
-                    const distance = Math.hypot(dx, dy);
-                    
-                    if (distance < CONNECT_DISTANCE) {
-                        connectionCount++;
-                        const intensity = Math.pow(1 - distance / CONNECT_DISTANCE, 1.8);
-                        const avgActivity = (n1.activity + n2.activity) / 2;
-                        const avgHue = (n1.hue + n2.hue) / 2;
-                        
-                        // Градиент для линии
-                        const gradient = ctx.createLinearGradient(n1.x, n1.y, n2.x, n2.y);
-                        gradient.addColorStop(0, `hsla(${n1.hue}, 80%, 60%, ${intensity * 0.5 * avgActivity})`);
-                        gradient.addColorStop(1, `hsla(${n2.hue}, 80%, 60%, ${intensity * 0.5 * avgActivity})`);
-                        
+                    const d2 = dx*dx + dy*dy;
+
+                    if (d2 < CONNECT_DIST * CONNECT_DIST) {
+                        const dist = Math.sqrt(d2);
+                        const alpha = (1 - dist / CONNECT_DIST) * 0.4;
+                        ctx.strokeStyle = `rgba(79, 172, 254, ${alpha})`;
+                        ctx.lineWidth = alpha * 2;
                         ctx.beginPath();
                         ctx.moveTo(n1.x, n1.y);
                         ctx.lineTo(n2.x, n2.y);
-                        ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 1.2 + intensity * 1.5;
                         ctx.stroke();
-                        
-                        // Энергетические импульсы по связям
-                        if (Math.random() < 0.015 * avgActivity) {
-                            const t = Math.random();
-                            const x = n1.x + dx * t;
-                            const y = n1.y + dy * t;
-                            particles.push(new EnergyParticle(x, y, avgHue));
-                        }
                     }
                 }
             }
-            
-            document.getElementById('connectionCount').innerText = connectionCount;
         }
-        
-        // --- ФОНОВЫЕ ЗВЁЗДЫ ---
-        const stars = [];
-        for (let i = 0; i < 400; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 1.5,
-                alpha: Math.random() * 0.5
-            });
-        }
-        
-        function drawStars() {
-            for (let star of stars) {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.5})`;
-                ctx.fill();
-            }
-        }
-        
-        // --- ГРАДИЕНТНЫЙ ФОН С АНИМАЦИЕЙ ---
-        let bgHue = 260;
-        
-        // --- МЫШЬ И КЛИКИ ---
-        let mouseX = null;
-        let mouseY = null;
-        
-        function addClickRipple(x, y) {
-            const ripple = document.createElement('div');
-            ripple.className = 'ripple';
-            ripple.style.left = x - 20 + 'px';
-            ripple.style.top = y - 20 + 'px';
-            ripple.style.width = '40px';
-            ripple.style.height = '40px';
-            ripple.style.backgroundColor = 'rgba(168, 85, 247, 0.4)';
-            ripple.style.boxShadow = '0 0 20px rgba(168, 85, 247, 0.8)';
-            document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-            
-            // Добавляем много частиц при клике
-            for (let i = 0; i < 30; i++) {
-                particles.push(new EnergyParticle(x + (Math.random() - 0.5) * 50, y + (Math.random() - 0.5) * 50, 280 + Math.random() * 60));
-            }
-        }
-        
-        canvas.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+
+        let mouseX = null, mouseY = null;
+        window.addEventListener('mousemove', e => { 
+            mouseX = e.clientX; 
+            mouseY = e.clientY; 
         });
-        
-        canvas.addEventListener('mouseleave', () => {
-            mouseX = null;
-            mouseY = null;
-        });
-        
-        canvas.addEventListener('click', (e) => {
-            addClickRipple(e.clientX, e.clientY);
-        });
-        
-        // --- АНИМАЦИЯ ---
-        let time = 0;
-        
+        window.addEventListener('mouseleave', () => { mouseX = null; mouseY = null; });
+        window.addEventListener('resize', resize);
+
         function animate() {
-            if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
-                resizeCanvas();
-                // Пересоздаём звёзды
-                stars.length = 0;
-                for (let i = 0; i < 400; i++) {
-                    stars.push({
-                        x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        size: Math.random() * 1.5,
-                        alpha: Math.random() * 0.5
-                    });
-                }
-            }
-            
-            // Анимируем фон
-            bgHue = (bgHue + 0.1) % 360;
-            const bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            bgGrad.addColorStop(0, `hsl(${bgHue}, 80%, 3%)`);
-            bgGrad.addColorStop(0.5, `hsl(${bgHue + 30}, 70%, 5%)`);
-            bgGrad.addColorStop(1, '#000000');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Звёзды
-            drawStars();
-            
-            // Обновление нейронов
-            neurons.forEach(neuron => {
-                neuron.update(mouseX, mouseY, particles);
+            // Эффект небольшого шлейфа
+            ctx.fillStyle = 'rgba(2, 2, 5, 0.2)'; 
+            ctx.fillRect(0, 0, width, height);
+
+            drawLines();
+
+            neurons.forEach(n => {
+                n.update(mouseX, mouseY);
+                n.draw();
             });
-            
-            // Обновление частиц
-            particles = particles.filter(p => p.update());
-            
-            // Отрисовка связей
-            drawConnections(time);
-            
-            // Отрисовка частиц
-            particles.forEach(p => p.draw(ctx));
-            
-            // Отрисовка нейронов
-            neurons.forEach(neuron => {
-                neuron.draw(ctx, time);
-            });
-            
-            // Эффект вокруг мыши
-            if (mouseX !== null && mouseY !== null) {
-                const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 150);
-                grad.addColorStop(0, 'rgba(168, 85, 247, 0.08)');
-                grad.addColorStop(1, 'rgba(168, 85, 247, 0)');
-                ctx.fillStyle = grad;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-            
-            time += 0.016;
+
             requestAnimationFrame(animate);
         }
-        
+
+        resize();
         animate();
-        
-        // --- RESIZE ---
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-        });
-        
-        console.log('✨ Neural Universe activated! Move mouse for reaction, click for energy burst!');
     </script>
 </body>
 </html>
