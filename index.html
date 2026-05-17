@@ -2,37 +2,145 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АРКАША ПОРОВОЗИК</title>
+    <title>Нейронная сеть</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            overflow: hidden;
+            background: #0a0a2a;
+        }
+        canvas {
+            display: block;
+        }
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
             color: white;
-        }
-        h1 {
-            font-size: 3em;
-        }
-        .container {
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto;
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀АРКАША ПОРОВОЗИК🚀</h1>
-        <p>ЭТО ПИЗДА ИЛИ НОРМАЛДЫ</p>
+    <div class="info">
+        🧠 Нейронов: <span id="count">0</span> | Двигай мышкой
     </div>
+
     <script>
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => document.getElementById('ip').innerText = data.ip);
+        const canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const NEURONS = 80;
+        const neurons = [];
+        
+        // Создаём нейроны
+        for (let i = 0; i < NEURONS; i++) {
+            neurons.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: 3 + Math.random() * 3
+            });
+        }
+        
+        let mouseX = null, mouseY = null;
+        
+        canvas.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function update() {
+            for (let n of neurons) {
+                // Отталкивание от мыши
+                if (mouseX && mouseY) {
+                    const dx = n.x - mouseX;
+                    const dy = n.y - mouseY;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 100) {
+                        n.vx += dx / dist * 0.5;
+                        n.vy += dy / dist * 0.5;
+                    }
+                }
+                
+                // Возврат к центру
+                n.vx += (canvas.width/2 - n.x) * 0.002;
+                n.vy += (canvas.height/2 - n.y) * 0.002;
+                
+                n.x += n.vx;
+                n.y += n.vy;
+                n.vx *= 0.98;
+                n.vy *= 0.98;
+                
+                // Границы
+                if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+                if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+                n.x = Math.min(canvas.width, Math.max(0, n.x));
+                n.y = Math.min(canvas.height, Math.max(0, n.y));
+            }
+        }
+        
+        function draw() {
+            ctx.fillStyle = '#0a0a2a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Рисуем связи
+            for (let i = 0; i < neurons.length; i++) {
+                for (let j = i + 1; j < neurons.length; j++) {
+                    const dx = neurons[i].x - neurons[j].x;
+                    const dy = neurons[i].y - neurons[j].y;
+                    const dist = Math.hypot(dx, dy);
+                    
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(neurons[i].x, neurons[i].y);
+                        ctx.lineTo(neurons[j].x, neurons[j].y);
+                        ctx.strokeStyle = `rgba(100, 70, 200, ${1 - dist/150})`;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Рисуем нейроны
+            let active = 0;
+            for (let n of neurons) {
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#667eea';
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.size * 0.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+                active++;
+            }
+            
+            document.getElementById('count').innerText = active;
+        }
+        
+        function animate() {
+            update();
+            draw();
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
