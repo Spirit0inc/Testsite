@@ -2,199 +2,37 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Нейронный Драйв</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АРКАША ПОРОВОЗИК</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; background: #020205; font-family: 'Segoe UI', sans-serif; }
-        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; }
-
-        .content {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
-            z-index: 10;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            pointer-events: none;
-            text-shadow: 0 0 15px rgba(100, 150, 255, 0.5);
         }
-
         h1 {
-            font-size: 3rem;
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 8px;
-            font-weight: 900;
+            font-size: 3em;
         }
-
-        .stats {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            color: #4facfe;
-            font-size: 11px;
-            font-family: monospace;
-            z-index: 10;
-            letter-spacing: 1px;
+        .container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-
-    <canvas id="canvas"></canvas>
-
-    <div class="content">
-        <h1>NEURAL SYSTЕM</h1>
-        <div style="opacity: 0.5; font-size: 0.9rem;">ACTIVE DYNAMICS ENGAGED</div>
+    <div class="container">
+        <h1>🚀АРКАША ПОРОВОЗИК🚀</h1>
+        <p>ЭТО ПИЗДА ИЛИ НОРМАЛДЫ</p>
     </div>
-
-    <div class="stats">
-        SYSTEM_READY // N_COUNT: <span id="n_val">0</span>
-    </div>
-
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height, centerX, centerY;
-        const neurons = [];
-        
-        // --- ПАРАМЕТРЫ ДЛЯ ДРАЙВА ---
-        const NEURON_COUNT = 250;     // Больше нейронов
-        const CONNECT_DIST = 130;     // Дистанция связей
-        const ATTRACTION = 0.04;      // Сила возврата (стабильность формы)
-        const MOUSE_DIST = 180;       // Радиус испуга мышки
-        const MOUSE_PUSH = 0.8;       // Сила пинка от мышки (было 0.15)
-        const FRICTION = 0.88;        // Сопротивление (чтобы не летали вечно)
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            centerX = width / 2;
-            centerY = height / 2;
-            initNeurons();
-        }
-
-        class Neuron {
-            constructor(bx, by) {
-                this.baseX = bx;
-                this.baseY = by;
-                this.x = bx;
-                this.y = by;
-                this.vx = 0;
-                this.vy = 0;
-                this.size = Math.random() * 2 + 1.5;
-                this.color = Math.random() > 0.5 ? '#4facfe' : '#00f2fe';
-            }
-
-            update(mx, my) {
-                // Возврат домой
-                this.vx += (this.baseX - this.x) * ATTRACTION;
-                this.vy += (this.baseY - this.y) * ATTRACTION;
-
-                // Убегаем от мышки (активная фаза)
-                if (mx !== null) {
-                    const dx = this.x - mx;
-                    const dy = this.y - my;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    
-                    if (dist < MOUSE_DIST) {
-                        const force = (1 - dist / MOUSE_DIST) * MOUSE_PUSH;
-                        // Добавляем резкое ускорение
-                        this.vx += (dx / dist) * force * 15; 
-                        this.vy += (dy / dist) * force * 15;
-                    }
-                }
-
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vx *= FRICTION;
-                this.vy *= FRICTION;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-                
-                // Добавим легкое свечение самим точкам
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-            }
-        }
-
-        function initNeurons() {
-            neurons.length = 0;
-            for (let i = 0; i < NEURON_COUNT; i++) {
-                const side = Math.random() > 0.5 ? 1 : -1;
-                const angle = Math.random() * Math.PI * 2;
-                
-                // Увеличенный размер "мозга"
-                const rX = Math.random() * 220; 
-                const rY = Math.random() * 160;
-                
-                const bx = centerX + (Math.cos(angle) * rX) + (side * 70);
-                const by = centerY + (Math.sin(angle) * rY) * (1 + Math.cos(angle) * 0.3);
-                
-                neurons.push(new Neuron(bx, by));
-            }
-            document.getElementById('n_val').innerText = NEURON_COUNT;
-        }
-
-        function drawLines() {
-            ctx.shadowBlur = 0; // Отключаем тени для линий ради скорости
-            for (let i = 0; i < neurons.length; i++) {
-                for (let j = i + 1; j < neurons.length; j++) {
-                    const n1 = neurons[i];
-                    const n2 = neurons[j];
-                    const dx = n1.x - n2.x;
-                    const dy = n1.y - n2.y;
-                    const d2 = dx*dx + dy*dy;
-
-                    if (d2 < CONNECT_DIST * CONNECT_DIST) {
-                        const dist = Math.sqrt(d2);
-                        const alpha = (1 - dist / CONNECT_DIST) * 0.4;
-                        ctx.strokeStyle = `rgba(79, 172, 254, ${alpha})`;
-                        ctx.lineWidth = alpha * 2;
-                        ctx.beginPath();
-                        ctx.moveTo(n1.x, n1.y);
-                        ctx.lineTo(n2.x, n2.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        let mouseX = null, mouseY = null;
-        window.addEventListener('mousemove', e => { 
-            mouseX = e.clientX; 
-            mouseY = e.clientY; 
-        });
-        window.addEventListener('mouseleave', () => { mouseX = null; mouseY = null; });
-        window.addEventListener('resize', resize);
-
-        function animate() {
-            // Эффект небольшого шлейфа
-            ctx.fillStyle = 'rgba(2, 2, 5, 0.2)'; 
-            ctx.fillRect(0, 0, width, height);
-
-            drawLines();
-
-            neurons.forEach(n => {
-                n.update(mouseX, mouseY);
-                n.draw();
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        resize();
-        animate();
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => document.getElementById('ip').innerText = data.ip);
     </script>
 </body>
 </html>
