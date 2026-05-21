@@ -29,7 +29,7 @@ function sendSmtpMail($to, $subject, $message) {
         $mail->Host = 'smtp.yandex.ru';
         $mail->SMTPAuth = true;
         $mail->Username = 'pevasnetsov5677@yandex.ru';
-        $mail->Password = 'tnujoyyvplozjneo';
+        $mail->Password = 'vlgxngvljcmlnxdc';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->CharSet = 'UTF-8';
