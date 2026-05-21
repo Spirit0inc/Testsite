@@ -147,7 +147,7 @@
     </section>
 
     <footer class="site-footer">
-        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+        <div class="container"><p>&copy; 2026 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
     </footer>
 </body>
 </html>
