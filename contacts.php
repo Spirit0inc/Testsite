@@ -7,16 +7,23 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .contacts-hero { background: linear-gradient(rgba(0,21,41,0.85), rgba(0,15,31,0.95)), url('https://images.unsplash.com/photo-1556740758-90de374c12ad?w=1200') center/cover; padding: 80px 0; text-align: center; }
-        .contact-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin: 60px 0; }
-        .contact-card { background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; margin-bottom: 20px; transition: 0.3s; }
-        .contact-card:hover { background: rgba(255,255,255,0.06); }
-        .contact-icon { font-size: 2rem; margin-bottom: 10px; }
-        .requisites { background: rgba(212,175,55,0.05); padding: 25px; border-radius: 12px; margin-top: 30px; }
-        .map-full { margin-top: 40px; border-radius: 12px; overflow: hidden; }
-        .social-links { display: flex; gap: 20px; margin-top: 20px; }
-        .social-link { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; text-decoration: none; color: #fff; transition: 0.3s; }
-        .social-link:hover { background: #ff851b; transform: translateY(-2px); }
-        @media (max-width: 768px) { .contact-info-grid { grid-template-columns: 1fr; } }
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin: 60px 0; align-items: start; }
+        .contact-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; transition: 0.3s; }
+        .contact-card:hover { background: rgba(255,255,255,0.08); }
+        .contact-item { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .contact-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .contact-title { font-size: 1.2rem; font-weight: 700; color: #d4af37; margin-bottom: 8px; }
+        .contact-item p { margin: 0; line-height: 1.4; }
+        .contact-item a { color: #fff; text-decoration: none; }
+        .contact-item a:hover { color: #ff851b; }
+        .map-full { border-radius: 20px; overflow: hidden; height: 100%; min-height: 400px; }
+        .map-full iframe { width: 100%; height: 100%; min-height: 400px; }
+        @media (max-width: 768px) { 
+            .contact-wrapper { grid-template-columns: 1fr; gap: 30px; }
+            .contact-card { padding: 25px; }
+            .map-full { min-height: 300px; }
+            .map-full iframe { min-height: 300px; }
+        }
     </style>
 </head>
 <body>
@@ -36,10 +43,10 @@
             </nav>
             <div class="header-contacts">
                 <div class="header-phone">
-                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                    <a href="tel:+79133777066"> +7 (913) 377-70-66</a>
                 </div>
                 <div class="header-email">
-                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                    <a href="mailto:kargo.54@mail.ru"> kargo.54@mail.ru</a>
                 </div>
             </div>
         </div>
@@ -50,86 +57,62 @@
     </section>
 
     <div class="container">
-        <div class="contact-info-grid">
-            <div>
-                <div class="contact-card">
-                    <div class="contact-icon">📍</div>
-                    <h3>Главный офис</h3>
-                    <p>г. Новосибирск, ул. Транспортная, д. 45, офис 302</p>
-                    <small style="color: #aaa;">БЦ "Логист", 3 этаж</small>
+        <div class="contact-wrapper">
+            <!-- Левая колонка - информация -->
+            <div class="contact-card">
+                <div class="contact-item">
+                    <div class="contact-title"> Главный офис</div>
+                    <p>г. Новосибирск, ул. Красногорская, д. 28/1</p>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">📞</div>
-                    <h3>Телефоны</h3>
-                    <p><a href="tel:+73830000000" style="color:#fff;">+7 (383) 000-00-00</a> (многоканальный)</p>
-                    <p><a href="tel:+79990000000" style="color:#fff;">+7 (999) 000-00-00</a> (отдел продаж)</p>
-                    <p><a href="tel:+78000000000" style="color:#fff;">8 (800) 000-00-00</a> (бесплатно по РФ)</p>
+                <div class="contact-item">
+                    <div class="contact-title"> Телефон</div>
+                    <p><a href="tel:+79133777066">+7 (913) 377-70-66</a></p>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">✉️</div>
-                    <h3>Email</h3>
-                    <p><a href="mailto:info@kargo-54.ru" style="color:#fff;">info@kargo-54.ru</a> - общие вопросы</p>
-                    <p><a href="mailto:sales@kargo-54.ru" style="color:#fff;">sales@kargo-54.ru</a> - коммерческий отдел</p>
+                <div class="contact-item">
+                    <div class="contact-title"> Email</div>
+                    <p><a href="mailto:kargo.54@mail.ru">kargo.54@mail.ru</a></p>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">⏰</div>
-                    <h3>Режим работы</h3>
-                    <p>Пн — Пт: 9:00 — 18:00 (Новосибирское время)</p>
+                <div class="contact-item">
+                    <div class="contact-title"> Режим работы</div>
+                    <p>Пн — Пт: 9:00 — 18:00</p>
                     <p>Сб — Вс: выходной</p>
-                    <p>Диспетчерская: круглосуточно</p>
-                </div>
-
-                <div class="social-links">
-                    <a href="#" class="social-link">📱 Telegram</a>
-                    <a href="#" class="social-link">💬 WhatsApp</a>
-                    <a href="#" class="social-link">📘 VK</a>
                 </div>
             </div>
 
-            <div>
-                <div class="contact-card">
-                    <div class="contact-icon">📄</div>
-                    <h3>Реквизиты компании</h3>
-                    <div class="requisites">
-                        <p><strong>ООО "ТК Континент"</strong></p>
-                        <p>ИНН: 5400000000</p>
-                        <p>КПП: 540001001</p>
-                        <p>ОГРН: 1235400000000</p>
-                        <p>Р/с: 40702810100000000000</p>
-                        <p>Банк: СИБИРСКИЙ БАНК ПАО СБЕРБАНК</p>
-                        <p>БИК: 045004000</p>
-                        <p>К/с: 30101810600000000000</p>
-                    </div>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-icon">🚚</div>
-                    <h3>Складские терминалы</h3>
-                    <p><strong>Склад приема грузов:</strong> г. Новосибирск, ул. Промышленная, д. 12</p>
-                    <p><strong>Склад выдачи:</strong> г. Новосибирск, ул. Логистическая, д. 8</p>
-                    <p><strong>Московский склад:</strong> Московская обл., г. Подольск, ул. Транспортная, д. 5</p>
-                </div>
+            <!-- Правая колонка - карта -->
+            <div class="map-full">
+                <iframe src="https://yandex.ru/map-widget/v1/?text=Красногорская%2028/1%20Новосибирск&z=17&l=map" frameborder="0" allowfullscreen></iframe>
             </div>
-        </div>
-
-        <div class="map-full">
-            <iframe src="https://yandex.ru/map-widget/v1/?ll=82.920430%2C55.030199&z=12&l=map" width="100%" height="400" frameborder="0" style="border-radius: 12px;"></iframe>
         </div>
     </div>
 
-    <section style="padding: 60px 0; background: #001f3f; margin-top: 50px;">
-        <div class="container" style="text-align: center;">
-            <h2 style="color: #d4af37;">Остались вопросы?</h2>
-            <p style="margin-bottom: 30px;">Заполните форму или позвоните нам — ответим на все вопросы!</p>
-            <a href="index.php#calc" class="btn btn-orange">Оставить заявку</a>
+    <section style="padding: 60px 20px; background: #1D4A6A; margin-top: 50px;">
+        <div class="container" style="text-align: center; background: rgba(255,255,255,0.05); border-radius: 30px; padding: 50px; backdrop-filter: blur(10px);">
+            <h2 style="color: #d4af37; font-size: 2rem; margin-bottom: 15px;"> Остались вопросы?</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Мы всегда на связи и готовы помочь!</p>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem;"></div>
+                    <a href="tel:+79133777066" style="color: #ff851b; text-decoration: none; font-size: 1.2rem; font-weight: bold;">+7 (913) 377-70-66</a>
+                    <p style="font-size: 0.8rem;">Звоните с 9:00 до 18:00</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem;"></div>
+                    <a href="mailto:kargo.54@mail.ru" style="color: #ff851b; text-decoration: none; font-size: 1.2rem; font-weight: bold;">kargo.54@mail.ru</a>
+                    <p style="font-size: 0.8rem;">Ответим в течение часа</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <a href="index.php#calc" class="btn btn-orange" style="padding: 12px 30px;"> Отправить заявку</a>
+            </div>
         </div>
     </section>
 
     <footer class="site-footer">
-        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+        <div class="container"><p>&copy; 2026 ООО «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
     </footer>
 </body>
 </html>

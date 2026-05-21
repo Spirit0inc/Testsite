@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ТК Континент | Доставка грузов по России</title>
+    <title>ООО "Континент" | Доставка грузов по России</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -141,10 +141,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             </nav>
             <div class="header-contacts">
                 <div class="header-phone">
-                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                    <a href="tel:+73830000000"> +7 (383) 000-00-00</a>
                 </div>
                 <div class="header-email">
-                    <a href="mailto:kargo.54@mail.ru">✉️ kargo.54@mail.ru</a>
+                    <a href="mailto:kargo.54@mail.ru"> kargo.54@mail.ru</a>
                 </div>
             </div>
         </div>
@@ -152,9 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     <section class="hero-section">
         <div class="container hero-content">
-            <h1>Надежная доставка грузов <span class="accent-gold">по всей России</span></h1>
-            <p>Оптимальные тарифы, гарантия сохранности, контроль на всех этапах</p>
-            <a href="#calc" class="btn btn-orange">Рассчитать стоимость</a>
+            <h1>ПЕРЕВОЗКА НЕГАБАРИТНОГО ГРУЗА ИЗ<span class="accent-gold"> НОВОСИБИРСКА, ЗАБАЙКАЛЬСКА, ВЛАДИВОСТОКА</span></h1>
         </div>
     </section>
 
@@ -166,9 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <div class="alert alert-success">
                     <h3>✅ Заявка успешно отправлена!</h3>
                     <p>Менеджер свяжется с вами в ближайшее время.</p>
-                    <p class="final-price">🎯 Ориентировочная стоимость: <span><?= number_format($calculated_price, 2, ',', ' ') ?> руб.</span></p>
+                    <p class="final-price"> Ориентировочная стоимость: <span><?= number_format($calculated_price, 2, ',', ' ') ?> руб.</span></p>
                     <?php if ($mail_error): ?>
-                        <small style="color: orange;">⚠️ <?= $mail_error ?></small>
+                        <small style="color: orange;"> <?= $mail_error ?></small>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
@@ -179,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                         <input type="hidden" name="action" value="send_lead">
                         
                         <div class="form-group">
-                            <label for="route">📦 Направление перевозки:</label>
+                            <label for="route"> Направление перевозки:</label>
                             <select name="route" id="route" required>
                                 <option value="">-- Выберите направление --</option>
                                 <?php foreach ($directions as $dir): ?>
@@ -190,48 +188,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="weight">⚖️ Вес (кг):</label>
+                                <label for="weight"> Вес (кг):</label>
                                 <input type="number" name="weight" id="weight" step="0.1" value="100" min="0" required>
                             </div>
                             <div class="form-group">
-                                <label for="volume">📐 Объем (м³):</label>
+                                <label for="volume"> Объем (м³):</label>
                                 <input type="number" name="volume" id="volume" step="0.01" value="0.5" min="0" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="cargo_value">💰 Оценочная стоимость груза (руб):</label>
+                            <label for="cargo_value"> Оценочная стоимость груза (руб):</label>
                             <input type="number" name="cargo_value" id="cargo_value" value="50000" min="0">
-                        </div>
-
-                        <div class="insurance-box">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="insurance_checkbox">
-                                <strong>🛡️ Страхование груза (рекомендуется)</strong>
-                            </label>
-                            <div id="insurance_options" style="display: none; margin-top: 15px;">
-                                <label class="radio-label"><input type="radio" name="insurance" value="0.01" checked> Базовый тариф (1%)</label>
-                                <label class="radio-label"><input type="radio" name="insurance" value="0.03"> Премиум тариф (3%)</label>
-                            </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="name">👤 Ваше имя:</label>
+                                <label for="name"> Ваше имя:</label>
                                 <input type="text" name="name" id="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone">📞 Телефон:</label>
+                                <label for="phone"> Телефон:</label>
                                 <input type="tel" name="phone" id="phone" required>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-orange btn-full">📩 Отправить заявку</button>
+                        <button type="submit" class="btn btn-orange btn-full"> Отправить заявку</button>
                     </form>
                 </div>
 
                 <div class="calc-info-container">
-                    <h3>📊 Актуальные тарифы</h3>
+                    <h3> Популярные тарифы</h3>
                     <table class="modern-table">
                         <thead><tr><th>Маршрут</th><th>За кг</th><th>За м³</th></tr></thead>
                         <tbody>
@@ -247,7 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; <?= date('Y') ?> ТК «Континент»</p>
+            <p>&copy; <?= date('Y') ?> ООО «Континент»</p>
         </div>
     </footer>
 

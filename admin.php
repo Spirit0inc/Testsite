@@ -173,10 +173,10 @@ if (isset($_GET['deleted'])) {
         <?php else: ?>
             <div class="admin-box">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #d4af37; padding-bottom: 15px; margin-bottom: 20px;">
-                    <h2>🚚 Управление тарифами ТК «Континент»</h2>
+                    <h2> Управление тарифами ТК «Континент»</h2>
                     <div>
-                        <a href="index.php" class="btn" style="background:#222; color:#fff; border:1px solid #444; margin-right: 10px;">🏠 На сайт</a>
-                        <a href="admin.php?logout=1" class="btn" style="background:#888; color:#fff;">🚪 Выйти</a>
+                        <a href="index.php" class="btn" style="background:#222; color:#fff; border:1px solid #444; margin-right: 10px;"> На сайт</a>
+                        <a href="admin.php?logout=1" class="btn" style="background:#888; color:#fff;"> Выйти</a>
                     </div>
                 </div>
 

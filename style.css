@@ -1,23 +1,32 @@
-*, *::before, *::after { box-sizing: border-box; }
+/* ========== GOOGLE FONTS ========== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ========== RESET & BASE ========== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #001529;
+    background-color: #1D4A6A;
     color: #f0f4f8;
     scroll-behavior: smooth;
 }
+
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
+
 .accent-gold {
     color: #d4af37;
 }
 
-/* Кнопки */
+/* ========== КНОПКИ ========== */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -28,44 +37,47 @@ body, html {
     cursor: pointer;
     text-align: center;
 }
+
 .btn-orange {
     background-color: #ff851b;
     color: #fff;
     border: none;
-    box-shadow: 0 4px 14px rgba(255,133,27,0.3);
+    box-shadow: 0 4px 14px rgba(255, 133, 27, 0.3);
 }
+
 .btn-orange:hover {
     background-color: #e07310;
     transform: translateY(-2px);
 }
+
 .btn-full {
     width: 100%;
 }
 
-/* Хедер с закругленными нижними углами */
+/* ========== ХЕДЕР ========== */
 .site-header {
-    background-color: #94A8BB;
-    border-bottom: 1px solid rgba(212,175,55,0.2);
+    background-color: #D9D9D9;
     position: sticky;
     top: 0;
     z-index: 1000;
     padding: 15px 0;
     border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .header-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* Ссылка логотипа */
 .logo-link {
     text-decoration: none;
     display: block;
 }
 
-/* ЛОГОТИП С ПОДПИСЬЮ */
 .logo {
     text-align: center;
 }
@@ -80,25 +92,32 @@ body, html {
 .logo-main {
     font-size: 1rem;
     font-weight: 700;
-    color: #EB7005;
+    color: #000000;
     letter-spacing: 2px;
     display: block;
 }
 
-/* Навигация */
-.nav-menu a {
-    color: #000000;         
-    font-weight: 700;       
-    text-decoration: none;
-    margin: 0 30px;
-    font-size: 1.4rem;        
-    transition: color 0.3s;
-}
-.nav-menu a:hover {
-    color: #ff851b;         
+/* ========== НАВИГАЦИЯ ========== */
+.nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
 }
 
-/* Контакты в шапке (телефон + почта) */
+.nav-menu a {
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #ff851b;
+}
+
+/* ========== КОНТАКТЫ В ШАПКЕ ========== */
 .header-contacts {
     display: flex;
     flex-direction: column;
@@ -107,14 +126,15 @@ body, html {
 }
 
 .header-phone a {
-    color: #000000;       
-    font-weight: 800;       
+    color: #000000;
+    font-weight: 800;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s;
 }
+
 .header-phone a:hover {
-    color: #ff851b;        
+    color: #ff851b;
 }
 
 .header-email a {
@@ -124,13 +144,14 @@ body, html {
     font-size: 1.3rem;
     transition: color 0.3s;
 }
+
 .header-email a:hover {
     color: #ff851b;
 }
 
-/* HERO БЛОК - ФОТО НА ВЕСЬ ФОН */
+/* ========== HERO БЛОК ========== */
 .hero-section {
-    background: linear-gradient(rgba(0,21,41,0.7), rgba(0,15,31,0.8)), 
+    background: linear-gradient(rgba(0, 21, 41, 0.7), rgba(0, 15, 31, 0.8)),
                 url('https://www.nextelematics.com/img/eco-driving.jpg') center/cover no-repeat;
     padding: 150px 0;
     text-align: center;
@@ -146,7 +167,7 @@ body, html {
     font-size: 3rem;
     margin-bottom: 20px;
     font-weight: 800;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content p {
@@ -154,10 +175,10 @@ body, html {
     max-width: 700px;
     margin: 0 auto 40px auto;
     color: #f0f4f8;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Заголовки секций */
+/* ========== ЗАГОЛОВКИ СЕКЦИЙ ========== */
 .section-title {
     text-align: center;
     font-size: 2rem;
@@ -165,6 +186,7 @@ body, html {
     position: relative;
     padding-bottom: 15px;
 }
+
 .section-title::after {
     content: '';
     position: absolute;
@@ -175,46 +197,54 @@ body, html {
     height: 3px;
     background-color: #ff851b;
 }
+
 .section-title.left-align {
     text-align: left;
     padding-bottom: 10px;
 }
+
 .section-title.left-align::after {
     left: 0;
     transform: none;
 }
 
-/* Секция калькулятора */
+/* ========== СЕКЦИЯ КАЛЬКУЛЯТОРА ========== */
 .calc-section {
     padding: 70px 0;
-    background-color: #001f3f;
+    background-color: #1D4A6A;
 }
+
 .calc-grid {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
     gap: 40px;
 }
+
 .calc-form-container {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(212,175,55,0.15);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.15);
     padding: 35px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
+
 .form-group {
     margin-bottom: 20px;
 }
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
 label {
     display: block;
     margin-bottom: 8px;
     font-size: 0.9rem;
     color: #b0c4de;
 }
+
 input[type="text"],
 input[type="number"],
 input[type="tel"],
@@ -222,41 +252,46 @@ select {
     width: 100%;
     padding: 12px;
     background-color: #001226;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 6px;
     color: #fff;
     font-size: 1rem;
     transition: border-color 0.3s;
 }
+
 input:focus,
 select:focus {
     border-color: #ff851b;
     outline: none;
 }
 
-/* Страхование */
+/* ========== СТРАХОВАНИЕ ========== */
 .insurance-box {
-    background: rgba(212,175,55,0.05);
-    border: 1px dashed rgba(212,175,55,0.4);
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px dashed rgba(212, 175, 55, 0.4);
     padding: 20px;
     border-radius: 8px;
     margin: 25px 0;
 }
+
 .checkbox-label {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     cursor: pointer;
 }
+
 .checkbox-label input {
     width: auto;
     margin-top: 3px;
 }
+
 .insurance-options {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
+
 .radio-label {
     display: flex;
     align-items: center;
@@ -264,9 +299,9 @@ select:focus {
     cursor: pointer;
 }
 
-/* Подсказка */
+/* ========== ПОДСКАЗКИ ========== */
 .info-tip {
-    background: rgba(212,175,55,0.1);
+    background: rgba(212, 175, 55, 0.1);
     border: 1px solid #d4af37;
     border-radius: 8px;
     padding: 12px;
@@ -275,107 +310,7 @@ select:focus {
     text-align: center;
 }
 
-/* Таблица цен (старая, но оставлю для совместимости) */
-.prices-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.prices-table th {
-    background-color: #001226;
-    color: #d4af37;
-    padding: 12px;
-    border-bottom: 2px solid rgba(212,175,55,0.3);
-    text-align: left;
-}
-.prices-table td {
-    padding: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.prices-table tr:hover {
-    background-color: rgba(255,255,255,0.02);
-}
-
-/* Преимущества */
-.features-section {
-    padding: 60px 0;
-    background-color: #001529;
-}
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-.feature-card {
-    text-align: center;
-    padding: 30px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 12px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-.feature-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255,255,255,0.06);
-}
-.feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-/* О компании */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 50px;
-    align-items: start;
-}
-.about-grid img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
-/* Оповещения */
-.alert {
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-.alert-success {
-    background-color: rgba(46,204,64,0.15);
-    border: 1px solid #2ecc40;
-}
-.final-price {
-    font-size: 1.2rem;
-    margin-top: 15px;
-}
-.final-price span {
-    color: #ff851b;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-
-/* Футер */
-.site-footer {
-    background-color: #000810;
-    padding: 25px 0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #666;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-.site-footer a {
-    color: #888;
-    text-decoration: none;
-}
-.site-footer a:hover {
-    color: #ff851b;
-}
-
-/* ========== СТИЛЬНАЯ ТАБЛИЦА ТАРИФОВ ========== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
+/* ========== ТАБЛИЦА ТАРИФОВ ========== */
 .calc-info-container {
     font-family: 'Inter', sans-serif;
 }
@@ -403,20 +338,18 @@ select:focus {
     border-radius: 3px;
 }
 
-/* Современная таблица */
 .modern-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     margin-top: 20px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
     overflow: hidden;
-    backdrop-filter: blur(10px);
 }
 
 .modern-table thead tr {
-    background: linear-gradient(135deg, rgba(255,133,27,0.2), rgba(212,175,55,0.1));
+    background: linear-gradient(135deg, rgba(255, 133, 27, 0.2), rgba(212, 175, 55, 0.1));
 }
 
 .modern-table th {
@@ -425,24 +358,25 @@ select:focus {
     padding: 18px 16px;
     text-align: left;
     color: #d4af37;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid rgba(212,175,55,0.3);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
 }
 
 .modern-table td {
     padding: 16px;
     font-weight: 500;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
 
 .modern-table tbody tr {
     transition: all 0.3s ease;
     cursor: pointer;
+    animation: fadeInUp 0.4s ease forwards;
+    opacity: 0;
 }
 
 .modern-table tbody tr:hover {
-    background: linear-gradient(90deg, rgba(255,133,27,0.1), rgba(212,175,55,0.05));
+    background: linear-gradient(90deg, rgba(255, 133, 27, 0.1), rgba(212, 175, 55, 0.05));
     transform: translateX(8px);
 }
 
@@ -470,7 +404,6 @@ select:focus {
     color: #b0c4de;
 }
 
-/* Анимация появления строк */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -482,21 +415,15 @@ select:focus {
     }
 }
 
-.modern-table tbody tr {
-    animation: fadeInUp 0.4s ease forwards;
-    opacity: 0;
-}
-
 .modern-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
 .modern-table tbody tr:nth-child(2) { animation-delay: 0.1s; }
 .modern-table tbody tr:nth-child(3) { animation-delay: 0.15s; }
 .modern-table tbody tr:nth-child(4) { animation-delay: 0.2s; }
 .modern-table tbody tr:nth-child(5) { animation-delay: 0.25s; }
 
-/* Бейджи */
 .rate-badge {
     display: inline-block;
-    background: rgba(255,133,27,0.15);
+    background: rgba(255, 133, 27, 0.15);
     border-radius: 20px;
     padding: 4px 10px;
     font-size: 0.7rem;
@@ -509,27 +436,26 @@ select:focus {
     text-align: center;
     margin-top: 20px;
     padding: 12px;
-    background: rgba(255,133,27,0.05);
+    background: rgba(255, 133, 27, 0.05);
     border-radius: 12px;
     font-size: 0.8rem;
     color: #b0c4de;
     border-left: 3px solid #ff851b;
 }
 
-/* Карточка информации (обновленная) */
 .info-box {
-    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,133,27,0.02));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 133, 27, 0.02));
     border-radius: 16px;
     padding: 25px;
     margin-top: 30px;
-    border: 1px solid rgba(212,175,55,0.15);
+    border: 1px solid rgba(212, 175, 55, 0.15);
     transition: all 0.3s ease;
 }
 
 .info-box:hover {
     transform: translateY(-5px);
-    border-color: rgba(212,175,55,0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .info-box h4 {
@@ -553,36 +479,155 @@ select:focus {
     margin-right: 10px;
 }
 
+/* ========== ПРЕИМУЩЕСТВА ========== */
+.features-section {
+    padding: 60px 0;
+    background-color: #1D4A6A;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+/* ========== О КОМПАНИИ ========== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.about-grid img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+/* ========== ОПОВЕЩЕНИЯ ========== */
+.alert {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.alert-success {
+    background-color: rgba(46, 204, 64, 0.15);
+    border: 1px solid #2ecc40;
+}
+
+.final-price {
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+.final-price span {
+    color: #ff851b;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+/* ========== ФУТЕР ========== */
+.site-footer {
+    background-color: #000810;
+    padding: 25px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.site-footer a {
+    color: #888;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #ff851b;
+}
+
 /* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .nav-menu a {
+        font-size: 1.2rem;
+        margin: 0 15px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .header-flex {
         flex-direction: column;
-        gap: 15px;
+        align-items: center;
     }
     
     .nav-menu {
-        display: flex;
-        flex-wrap: wrap;
+        order: 3;
+        width: 100%;
         justify-content: center;
-        gap: 10px;
-    }
-    .nav-menu a {
-        margin: 0 5px;
-        font-size: 1rem;
     }
     
-    /* Контакты на мобилках */
+    .nav-menu a {
+        font-size: 1rem;
+        margin: 0 8px;
+    }
+    
     .header-contacts {
         align-items: center;
         flex-direction: row;
         gap: 15px;
-        margin-top: 5px;
+        order: 2;
     }
-    .header-email a {
-        font-size: 0.75rem;
-    }
+    
     .header-phone a {
         font-size: 0.9rem;
+    }
+    
+    .header-email a {
+        font-size: 0.8rem;
+    }
+    
+    .logo {
+        order: 1;
+    }
+    
+    .hero-section {
+        padding: 80px 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
     }
     
     .calc-grid,
@@ -590,47 +635,90 @@ select:focus {
     .features-grid {
         grid-template-columns: 1fr;
     }
+    
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-    }
-    .hero-section {
-        padding: 100px 0;
-    }
     
-    /* Логотип на мобилках */
     .logo-img {
-        height: 55px;
-        margin-bottom: 5px;
-    }
-    .logo-main {
-        font-size: 0.8rem;
-        letter-spacing: 1px;
+        height: 50px;
     }
     
-    /* Таблица на мобилках */
+    .logo-main {
+        font-size: 0.75rem;
+    }
+    
     .modern-table th,
     .modern-table td {
-        padding: 12px 10px;
-        font-size: 0.85rem;
+        padding: 10px 8px;
+        font-size: 0.8rem;
     }
+    
     .modern-table td:nth-child(2),
     .modern-table td:nth-child(3) {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
+    
     .calc-info-container h3 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
-    .modern-table tbody tr:hover {
-        transform: translateX(0);
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .features-grid {
+        gap: 15px;
+    }
+    
+    .feature-card {
+        padding: 20px;
+    }
+    
+    .about-grid {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .calc-form-container {
+        padding: 20px;
+    }
+    
+    .modern-table th,
+    .modern-table td {
+        padding: 8px 6px;
+        font-size: 0.7rem;
+    }
+    
+    .modern-table td:nth-child(2),
+    .modern-table td:nth-child(3) {
+        font-size: 0.75rem;
+    }
+    
+    .header-email a {
+        font-size: 0.7rem;
+    }
+    
+    .header-phone a {
+        font-size: 0.8rem;
+    }
+    
+    .site-footer {
+        font-size: 0.7rem;
     }
 }

@@ -41,10 +41,10 @@
             </nav>
             <div class="header-contacts">
                 <div class="header-phone">
-                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                    <a href="tel:+73830000000"> +7 (383) 000-00-00</a>
                 </div>
                 <div class="header-email">
-                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                    <a href="mailto:info@kargo-54.ru"> info@kargo-54.ru</a>
                 </div>
             </div>
         </div>
@@ -88,17 +88,7 @@
         </div>
     </section>
 
-    <section class="video-section">
-        <div class="container">
-            <h2 class="section-title">Видео с наших перевозок</h2>
-            <div class="video-grid">
-                <div class="video-card"><div class="video-placeholder">🎬 Видео процесса погрузки</div><div class="portfolio-content"><h3>Погрузка оборудования</h3><small>Процесс фиксации груза</small></div></div>
-                <div class="video-card"><div class="video-placeholder">🚛 Видео процесса выгрузки</div><div class="portfolio-content"><h3>Выгрузка в Новосибирске</h3><small>Соблюдение всех норм</small></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="calc-section" style="background: #001226;">
+    <section class="calc-section" style="background: #1D4A6A;">
         <div class="container" style="text-align: center;">
             <h2 style="color: #d4af37;">Хотите стать нашим следующим клиентом?</h2>
             <p style="margin-bottom: 30px;">Оставьте заявку и получите индивидуальное предложение</p>
@@ -107,7 +97,7 @@
     </section>
 
     <footer class="site-footer">
-        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+        <div class="container"><p>&copy; 2026 ООО «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
     </footer>
 </body>
 </html>

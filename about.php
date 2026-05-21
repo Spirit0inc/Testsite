@@ -81,10 +81,10 @@
             </nav>
             <div class="header-contacts">
                 <div class="header-phone">
-                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                    <a href="tel:+73830000000"> +7 (383) 000-00-00</a>
                 </div>
                 <div class="header-email">
-                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                    <a href="mailto:info@kargo-54.ru"> info@kargo-54.ru</a>
                 </div>
             </div>
         </div>
@@ -117,11 +117,11 @@
                     <p>Наша миссия — сделать грузоперевозки прозрачными, быстрыми и доступными. Мы используем современные технологии управления перевозками, что позволяет нам предлагать конкурентные цены и гарантировать сохранность грузов.</p>
                     
                     <div class="mission-box">
-                        <h3 style="color: #d4af37;">🎯 Наша миссия</h3>
+                        <h3 style="color: #d4af37;"> Наша миссия</h3>
                         <p>Стать логистическим партнером №1 для российского бизнеса, обеспечивая безупречное качество сервиса и индивидуальный подход к каждому клиенту.</p>
                     </div>
                     
-                    <h3>🏆 Наши преимущества</h3>
+                    <h3> Наши преимущества</h3>
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin: 15px 0;">✅ <strong>10+ лет опыта</strong> — тысячи довольных клиентов по всей России</li>
                         <li style="margin: 15px 0;">✅ <strong>Прозрачные цены</strong> — фиксированные тарифы без скрытых платежей</li>
@@ -136,29 +136,11 @@
                     <img src="https://i.pinimg.com/originals/00/f9/77/00f977b75fe12867a4e4d78d155bb5b5.jpg" alt="Перевозки" style="width: 100%; border-radius: 12px; margin-top: 20px;">
                 </div>
             </div>
-
-            <div style="margin-top: 60px;">
-                <h2 class="section-title">Наша команда</h2>
-                <div class="team-grid">
-                    <div class="team-card"><div class="team-img">👨‍💼</div><h3>Алексей Соколов</h3><p>Генеральный директор</p><small>15 лет в логистике</small></div>
-                    <div class="team-card"><div class="team-img">👩‍💼</div><h3>Екатерина Морозова</h3><p>Руководитель отдела перевозок</p><small>Эксперт по маршрутизации</small></div>
-                    <div class="team-card"><div class="team-img">👨‍🔧</div><h3>Дмитрий Волков</h3><p>Технический директор</p><small>Контроль автопарка</small></div>
-                </div>
-            </div>
-
-            <div style="margin-top: 60px;">
-                <h2 class="section-title">Фотогалерея</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/1.jpg');"></div>
-                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/4.jpg');"></div>
-                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/8.jpg');"></div>
-                </div>
-            </div>
         </div>
     </section>
 
     <footer class="site-footer">
-        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+        <div class="container"><p>&copy; 2026 ООО «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
     </footer>
 </body>
 </html>
