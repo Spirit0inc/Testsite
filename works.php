@@ -28,17 +28,25 @@
 
     <header class="site-header">
         <div class="container header-flex">
-            <div class="logo" id="secretLogo">
-                <span class="logo-main">КОНТИНЕНТ</span>
-                <span class="logo-sub">транспортная компания</span>
-            </div>
+            <a href="index.php" class="logo-link" id="secretLogo">
+                <div class="logo">
+                    <img src="images/logo.png" alt="ТК Континент" class="logo-img">
+                    <span class="logo-main">КОНТИНЕНТ</span>
+                </div>
+            </a>
             <nav class="nav-menu">
-                <a href="index.php">Главная</a>
                 <a href="about.php">О компании</a>
                 <a href="works.php">Наши работы</a>
                 <a href="contacts.php">Контакты</a>
             </nav>
-            <div class="header-phone"><a href="tel:+73830000000">+7 (383) 000-00-00</a></div>
+            <div class="header-contacts">
+                <div class="header-phone">
+                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                </div>
+                <div class="header-email">
+                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -70,12 +78,12 @@
         <div class="container">
             <h2 class="section-title">Примеры наших перевозок</h2>
             <div class="portfolio-grid">
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/2642652/pexels-photo-2642652.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Строительные материалы</span><h3>Москва → Новосибирск</h3><p>Перевозка 45 тонн строительных материалов. Доставка за 5 дней.</p><small>Клиент: ООО "СтройИнвест"</small></div></div>
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/6567707/pexels-photo-6567707.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Оборудование</span><h3>СПб → Владивосток</h3><p>Доставка промышленного оборудования через всю страну.</p><small>Клиент: Завод "ТехноПром"</small></div></div>
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/3758982/pexels-photo-3758982.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Скоропорт</span><h3>Новосибирск → Москва</h3><p>Срочная перевозка медикаментов за 48 часов.</p><small>Клиент: Аптечная сеть "Здоровье"</small></div></div>
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/4060149/pexels-photo-4060149.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Продукты питания</span><h3>Краснодар → Екатеринбург</h3><p>Рефрижератор, контроль температуры -18°C.</p><small>Клиент: ТД "Фруктовый рай"</small></div></div>
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/7694347/pexels-photo-7694347.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Мебель</span><h3>Москва → Иркутск</h3><p>Перевозка мебели для гостиничного комплекса.</p><small>Клиент: ГК "Байкал-Отель"</small></div></div>
-                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/4283417/pexels-photo-4283417.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Автозапчасти</span><h3>Владивосток → Новосибирск</h3><p>Таможенное оформление, страховка груза.</p><small>Клиент: Авто-Сибирь</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/portfolio/4.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Строительные материалы</span><h3>Москва → Новосибирск</h3><p>Перевозка 45 тонн строительных материалов. Доставка за 5 дней.</p><small>Клиент: ООО "СтройИнвест"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/portfolio/8.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Оборудование</span><h3>СПб → Владивосток</h3><p>Доставка промышленного оборудования через всю страну.</p><small>Клиент: Завод "ТехноПром"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/portfolio/7.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Скоропорт</span><h3>Новосибирск → Москва</h3><p>Срочная перевозка медикаментов за 48 часов.</p><small>Клиент: Аптечная сеть "Здоровье"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/portfolio/14.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Продукты питания</span><h3>Краснодар → Екатеринбург</h3><p>Рефрижератор, контроль температуры -18°C.</p><small>Клиент: ТД "Фруктовый рай"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/foto-kargo4.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Мебель</span><h3>Москва → Иркутск</h3><p>Перевозка мебели для гостиничного комплекса.</p><small>Клиент: ГК "Байкал-Отель"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://kargo-54.ru/image/portfolio/15.jpg');"></div><div class="portfolio-content"><span class="portfolio-tag">Автозапчасти</span><h3>Владивосток → Новосибирск</h3><p>Таможенное оформление, страховка груза.</p><small>Клиент: Авто-Сибирь</small></div></div>
             </div>
         </div>
     </section>

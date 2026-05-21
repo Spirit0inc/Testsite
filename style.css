@@ -42,53 +42,90 @@ body, html {
     width: 100%;
 }
 
-/* Хедер */
+/* Хедер с закругленными нижними углами */
 .site-header {
-    background-color: #000f1f;
+    background-color: #94A8BB;
     border-bottom: 1px solid rgba(212,175,55,0.2);
     position: sticky;
     top: 0;
     z-index: 1000;
     padding: 15px 0;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 .header-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.logo {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-}
-.logo-main {
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 2px;
-}
-.logo-sub {
-    font-size: 0.75rem;
-    color: #d4af37;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.nav-menu a {
-    color: #f0f4f8;
+
+/* Ссылка логотипа */
+.logo-link {
     text-decoration: none;
-    margin: 0 15px;
-    font-size: 0.95rem;
+    display: block;
+}
+
+/* ЛОГОТИП С ПОДПИСЬЮ */
+.logo {
+    text-align: center;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+    display: block;
+    margin: 0 auto -1px auto;
+}
+
+.logo-main {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #EB7005;
+    letter-spacing: 2px;
+    display: block;
+}
+
+/* Навигация */
+.nav-menu a {
+    color: #000000;         
+    font-weight: 700;       
+    text-decoration: none;
+    margin: 0 30px;
+    font-size: 1.4rem;        
     transition: color 0.3s;
 }
 .nav-menu a:hover {
-    color: #ff851b;
+    color: #ff851b;         
 }
+
+/* Контакты в шапке (телефон + почта) */
+.header-contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
 .header-phone a {
-    color: #fff;
+    color: #000000;       
+    font-weight: 800;       
     text-decoration: none;
-    font-weight: bold;
     font-size: 1.1rem;
-    border-bottom: 2px solid #ff851b;
+    transition: color 0.3s;
+}
+.header-phone a:hover {
+    color: #ff851b;        
+}
+
+.header-email a {
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: color 0.3s;
+}
+.header-email a:hover {
+    color: #ff851b;
 }
 
 /* HERO БЛОК - ФОТО НА ВЕСЬ ФОН */
@@ -237,22 +274,8 @@ select:focus {
     font-size: 0.85rem;
     text-align: center;
 }
-.info-box {
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 30px;
-}
-.info-box h4 {
-    color: #d4af37;
-    margin-top: 0;
-}
-.info-box p {
-    font-size: 0.85rem;
-    line-height: 1.6;
-}
 
-/* Таблица цен */
+/* Таблица цен (старая, но оставлю для совместимости) */
 .prices-table {
     width: 100%;
     border-collapse: collapse;
@@ -350,12 +373,193 @@ select:focus {
     color: #ff851b;
 }
 
-/* Адаптивность */
+/* ========== СТИЛЬНАЯ ТАБЛИЦА ТАРИФОВ ========== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+.calc-info-container {
+    font-family: 'Inter', sans-serif;
+}
+
+.calc-info-container h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d4af37 0%, #ff851b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.calc-info-container h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff851b, #d4af37);
+    border-radius: 3px;
+}
+
+/* Современная таблица */
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.modern-table thead tr {
+    background: linear-gradient(135deg, rgba(255,133,27,0.2), rgba(212,175,55,0.1));
+}
+
+.modern-table th {
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 18px 16px;
+    text-align: left;
+    color: #d4af37;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(212,175,55,0.3);
+}
+
+.modern-table td {
+    padding: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.modern-table tbody tr {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.modern-table tbody tr:hover {
+    background: linear-gradient(90deg, rgba(255,133,27,0.1), rgba(212,175,55,0.05));
+    transform: translateX(8px);
+}
+
+.modern-table tbody tr:hover td:first-child {
+    color: #ff851b;
+}
+
+.modern-table td:first-child {
+    font-weight: 600;
+    color: #fff;
+}
+
+.modern-table td:nth-child(2),
+.modern-table td:nth-child(3) {
+    font-weight: 700;
+    color: #ff851b;
+    font-size: 1.1rem;
+}
+
+.modern-table td:nth-child(2)::after,
+.modern-table td:nth-child(3)::after {
+    content: ' ₽';
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #b0c4de;
+}
+
+/* Анимация появления строк */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modern-table tbody tr {
+    animation: fadeInUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+.modern-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.modern-table tbody tr:nth-child(2) { animation-delay: 0.1s; }
+.modern-table tbody tr:nth-child(3) { animation-delay: 0.15s; }
+.modern-table tbody tr:nth-child(4) { animation-delay: 0.2s; }
+.modern-table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+
+/* Бейджи */
+.rate-badge {
+    display: inline-block;
+    background: rgba(255,133,27,0.15);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #ff851b;
+    margin-left: 8px;
+}
+
+.price-note {
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px;
+    background: rgba(255,133,27,0.05);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #b0c4de;
+    border-left: 3px solid #ff851b;
+}
+
+/* Карточка информации (обновленная) */
+.info-box {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,133,27,0.02));
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 30px;
+    border: 1px solid rgba(212,175,55,0.15);
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212,175,55,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.info-box h4 {
+    color: #d4af37;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-box p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #c0d4e8;
+}
+
+.info-box p::before {
+    content: "▹";
+    color: #ff851b;
+    margin-right: 10px;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
 @media (max-width: 768px) {
     .header-flex {
         flex-direction: column;
         gap: 15px;
     }
+    
     .nav-menu {
         display: flex;
         flex-wrap: wrap;
@@ -364,7 +568,23 @@ select:focus {
     }
     .nav-menu a {
         margin: 0 5px;
+        font-size: 1rem;
     }
+    
+    /* Контакты на мобилках */
+    .header-contacts {
+        align-items: center;
+        flex-direction: row;
+        gap: 15px;
+        margin-top: 5px;
+    }
+    .header-email a {
+        font-size: 0.75rem;
+    }
+    .header-phone a {
+        font-size: 0.9rem;
+    }
+    
     .calc-grid,
     .about-grid,
     .features-grid {
@@ -385,5 +605,32 @@ select:focus {
     }
     .hero-section {
         padding: 100px 0;
+    }
+    
+    /* Логотип на мобилках */
+    .logo-img {
+        height: 55px;
+        margin-bottom: 5px;
+    }
+    .logo-main {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+    
+    /* Таблица на мобилках */
+    .modern-table th,
+    .modern-table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
+    .modern-table td:nth-child(2),
+    .modern-table td:nth-child(3) {
+        font-size: 0.95rem;
+    }
+    .calc-info-container h3 {
+        font-size: 1.4rem;
+    }
+    .modern-table tbody tr:hover {
+        transform: translateX(0);
     }
 }

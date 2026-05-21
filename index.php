@@ -2,6 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require_once 'phpmailer/src/PHPMailer.php';
+require_once 'phpmailer/src/SMTP.php';
+require_once 'phpmailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 // Загрузка направлений из JSON
 $directions_file = 'directions.json';
 $directions = [];
@@ -12,6 +19,43 @@ if (file_exists($directions_file)) {
 $message_sent = false;
 $calculated_price = 0;
 $show_calculated_price = false;
+$mail_error = '';
+
+function sendSmtpMail($to, $subject, $message) {
+    $mail = new PHPMailer(true);
+    try {
+        // Настройки для Яндекса
+        $mail->isSMTP();
+        $mail->Host = 'smtp.yandex.ru';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'pevasnetsov5677@yandex.ru';
+        $mail->Password = 'tnujoyyvplozjneo';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->CharSet = 'UTF-8';
+        
+        // Отключаем проверку сертификатов для Windows
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        
+        $mail->setFrom('pevasnetsov5677@yandex.ru', 'ТК Континент');
+        $mail->addAddress($to);
+        
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+        
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'send_lead') {
     $route_id = intval($_POST['route']);
@@ -37,6 +81,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $insurance_cost = $cargo_value * $insurance_rate;
         $calculated_price = $base_cost + $insurance_cost;
         $show_calculated_price = true;
+        
+        // Сохраняем в файл
+        $lead_data = date('Y-m-d H:i:s') . " | $name | $phone | {$selected_route['name']} | " . number_format($calculated_price, 2, ',', ' ') . " руб.\n";
+        file_put_contents('leads.txt', $lead_data, FILE_APPEND);
+        
+        // Отправляем письмо
+        $to = "podstrelov5567@mail.ru";
+        $subject = "Новая заявка с сайта ТК Континент";
+        
+        $message = "
+        <html>
+        <head><meta charset='UTF-8'></head>
+        <body style='font-family: Arial, sans-serif;'>
+            <h2 style='color: #ff851b;'>📦 Новая заявка</h2>
+            <table style='border-collapse: collapse; width: 100%;'>
+                <tr><td style='padding: 8px; background: #f5f5f5;'><strong>👤 Имя:</strong></td><td>$name</td></tr>
+                <tr><td style='padding: 8px; background: #f5f5f5;'><strong>📞 Телефон:</strong></td><td>$phone</td></tr>
+                <tr><td style='padding: 8px; background: #f5f5f5;'><strong>🗺️ Направление:</strong></td><td>{$selected_route['name']}</td></tr>
+                <tr><td style='padding: 8px; background: #f5f5f5;'><strong>⚖️ Вес:</strong></td><td>$weight кг</td></tr>
+                <tr><td style='padding: 8px; background: #f5f5f5;'><strong>📐 Объем:</strong></td><td>$volume м³</td></tr>
+                <tr style='background: #fff3e0;'><td style='padding: 10px;'><strong>💰 ИТОГО:</strong></td><td><strong style='color: #ff851b;'>" . number_format($calculated_price, 2, ',', ' ') . " ₽</strong></td></tr>
+            </table>
+        </body>
+        </html>
+        ";
+        
+        $mail_result = sendSmtpMail($to, $subject, $message);
+        if (!$mail_result) {
+            $mail_error = "Письмо не отправлено, но заявка сохранена в leads.txt";
+        }
     }
     
     $message_sent = true;
@@ -54,18 +128,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     <header class="site-header">
         <div class="container header-flex">
-            <div class="logo">
-                <span class="logo-main">КОНТИНЕНТ</span>
-                <span class="logo-sub">транспортная компания</span>
-            </div>
+            <a href="index.php" class="logo-link" id="secretLogo">
+                <div class="logo">
+                    <img src="images/logo.png" alt="ТК Континент" class="logo-img">
+                    <span class="logo-main">КОНТИНЕНТ</span>
+                </div>
+            </a>
             <nav class="nav-menu">
-                <a href="index.php">Главная</a>
                 <a href="about.php">О компании</a>
                 <a href="works.php">Наши работы</a>
                 <a href="contacts.php">Контакты</a>
             </nav>
-            <div class="header-phone">
-                <a href="tel:+73830000000">+7 (383) 000-00-00</a>
+            <div class="header-contacts">
+                <div class="header-phone">
+                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                </div>
+                <div class="header-email">
+                    <a href="mailto:kargo.54@mail.ru">✉️ kargo.54@mail.ru</a>
+                </div>
             </div>
         </div>
     </header>
@@ -86,13 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <div class="alert alert-success">
                     <h3>✅ Заявка успешно отправлена!</h3>
                     <p>Менеджер свяжется с вами в ближайшее время.</p>
-                    <p class="final-price">🎯 Ориентировочная стоимость перевозки: <span><?= number_format($calculated_price, 2, ',', ' ') ?> руб.</span></p>
-                    <small style="display: block; margin-top: 15px;">* Точная стоимость будет рассчитана менеджером после подтверждения всех деталей</small>
-                </div>
-            <?php elseif ($message_sent): ?>
-                <div class="alert alert-success">
-                    <h3>✅ Заявка успешно отправлена!</h3>
-                    <p>Менеджер свяжется с вами для расчета точной стоимости перевозки.</p>
+                    <p class="final-price">🎯 Ориентировочная стоимость: <span><?= number_format($calculated_price, 2, ',', ' ') ?> руб.</span></p>
+                    <?php if ($mail_error): ?>
+                        <small style="color: orange;">⚠️ <?= $mail_error ?></small>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -106,11 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                             <select name="route" id="route" required>
                                 <option value="">-- Выберите направление --</option>
                                 <?php foreach ($directions as $dir): ?>
-                                    <option value="<?= $dir['id'] ?>" 
-                                            data-kg="<?= $dir['price_per_kg'] ?>" 
-                                            data-m3="<?= $dir['price_per_m3'] ?>">
-                                        <?= htmlspecialchars($dir['name']) ?>
-                                    </option>
+                                    <option value="<?= $dir['id'] ?>"><?= htmlspecialchars($dir['name']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -131,101 +204,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                             <input type="number" name="cargo_value" id="cargo_value" value="50000" min="0">
                         </div>
 
-                        <!-- Страхование - опционально -->
-                        <div class="insurance-box" id="insurance">
+                        <div class="insurance-box">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="insurance_checkbox">
-                                <span class="custom-checkbox"></span>
-                                <div>
-                                    <strong>🛡️ Страхование груза (рекомендуется)</strong>
-                                    <small>Защита от повреждений, кражи и потери</small>
-                                </div>
+                                <strong>🛡️ Страхование груза (рекомендуется)</strong>
                             </label>
-                            
-                            <div id="insurance_options" style="display: none; margin-top: 15px; margin-left: 30px;">
-                                <div class="insurance-options">
-                                    <label class="radio-label">
-                                        <input type="radio" name="insurance" value="0.01" checked>
-                                        <strong>Базовый тариф (1%)</strong>
-                                        <small>Полная защита от стандартных рисков</small>
-                                    </label>
-                                    <label class="radio-label">
-                                        <input type="radio" name="insurance" value="0.03">
-                                        <strong>Премиум тариф (3%)</strong>
-                                        <small>Расширенная защита + форс-мажор</small>
-                                    </label>
-                                </div>
+                            <div id="insurance_options" style="display: none; margin-top: 15px;">
+                                <label class="radio-label"><input type="radio" name="insurance" value="0.01" checked> Базовый тариф (1%)</label>
+                                <label class="radio-label"><input type="radio" name="insurance" value="0.03"> Премиум тариф (3%)</label>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">👤 Ваше имя:</label>
-                                <input type="text" name="name" id="name" placeholder="Иван" required>
+                                <input type="text" name="name" id="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">📞 Телефон:</label>
-                                <input type="tel" name="phone" id="phone" placeholder="+7 (999) 000-00-00" required>
+                                <input type="tel" name="phone" id="phone" required>
                             </div>
                         </div>
 
-                        <div class="info-tip">
-                            💡 <strong>Подсказка:</strong> Заполните все поля и нажмите "Отправить заявку", чтобы получить ориентировочную стоимость перевозки
-                        </div>
-
-                        <button type="submit" class="btn btn-orange btn-full">📩 Отправить заявку и рассчитать стоимость</button>
+                        <button type="submit" class="btn btn-orange btn-full">📩 Отправить заявку</button>
                     </form>
                 </div>
 
                 <div class="calc-info-container">
                     <h3>📊 Актуальные тарифы</h3>
-                    <table class="prices-table">
-                        <thead>
-                            <tr><th>Маршрут</th><th>За кг</th><th>За м³</th></tr>
-                        </thead>
+                    <table class="modern-table">
+                        <thead><tr><th>Маршрут</th><th>За кг</th><th>За м³</th></tr></thead>
                         <tbody>
                             <?php foreach ($directions as $dir): ?>
                             <tr><td><?= htmlspecialchars($dir['name']) ?></td><td><?= $dir['price_per_kg'] ?> ₽</td><td><?= $dir['price_per_m3'] ?> ₽</td></tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <p style="margin-top: 20px; font-size: 0.85rem; color: #aaa;">*Цены указаны без учета страховки и доп. услуг</p>
-                    
-                    <div class="info-box">
-                        <h4>📝 Как рассчитать стоимость?</h4>
-                        <p>1. Выберите направление перевозки<br>
-                        2. Укажите вес и объем груза<br>
-                        3. При необходимости добавьте страховку<br>
-                        4. Нажмите "Отправить заявку"<br>
-                        5. Менеджер рассчитает точную стоимость</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="features-section">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🚛</div>
-                    <h3>Собственный автопарк</h3>
-                    <p>Более 50 единиц техники разной грузоподъемности</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📋</div>
-                    <h3>Полный пакет документов</h3>
-                    <p>Договоры, акты, закрывающие документы</p>
-                </div>
-                <div class="feature-card" id="secretButton">
-                    <div class="feature-icon">🤝</div>
-                    <h3>Индивидуальный подход</h3>
-                    <p>Разработаем оптимальный маршрут под вас</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3>Более 500 довольных клиентов</h3>
-                    <p>Нас рекомендуют друзьям и партнерам</p>
                 </div>
             </div>
         </div>
@@ -233,48 +247,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; <?= date('Y') ?> ТК «Континент». Все права защищены.</p>
-            <p><a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p>
+            <p>&copy; <?= date('Y') ?> ТК «Континент»</p>
         </div>
     </footer>
 
     <script>
-        // Секретный кликер для входа в админку (5 кликов по карточке "Индивидуальный подход")
-        let clickCount = 0;
-        let clickTimer = null;
+        document.getElementById('insurance_checkbox')?.addEventListener('change', function() {
+            document.getElementById('insurance_options').style.display = this.checked ? 'block' : 'none';
+        });
         
-        let secretButton = document.getElementById('secretButton');
-        if (secretButton) {
-            secretButton.addEventListener('click', function(e) {
-                e.stopPropagation();
-                clickCount++;
-                clearTimeout(clickTimer);
-                
-                if (clickCount === 1) {
-                    this.style.transform = 'scale(0.98)';
-                    setTimeout(() => { this.style.transform = ''; }, 200);
-                }
-                
-                if (clickCount === 5) {
-                    window.location.href = 'admin.php';
-                    clickCount = 0;
-                }
-                
-                clickTimer = setTimeout(function() {
-                    clickCount = 0;
-                }, 1000);
-            });
-        }
-
-        // Логика для страхования
-        let insuranceCheckbox = document.getElementById('insurance_checkbox');
-        let insuranceOptions = document.getElementById('insurance_options');
-        
-        if (insuranceCheckbox) {
-            insuranceCheckbox.addEventListener('change', function() {
-                insuranceOptions.style.display = this.checked ? 'block' : 'none';
-            });
-        }
+        let clickCount = 0, clickTimer = null;
+        document.getElementById('secretButton')?.addEventListener('click', function() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount === 5) { window.location.href = 'admin.php'; }
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+        });
     </script>
 </body>
 </html>

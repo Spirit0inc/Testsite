@@ -23,15 +23,25 @@
 
     <header class="site-header">
         <div class="container header-flex">
-            <div class="logo"><span class="logo-main">КОНТИНЕНТ</span><span class="logo-sub">транспортная компания</span></div>
+            <a href="index.php" class="logo-link" id="secretLogo">
+                <div class="logo">
+                    <img src="images/logo.png" alt="ТК Континент" class="logo-img">
+                    <span class="logo-main">КОНТИНЕНТ</span>
+                </div>
+            </a>
             <nav class="nav-menu">
-                <a href="index.php">Главная</a>
                 <a href="about.php">О компании</a>
                 <a href="works.php">Наши работы</a>
                 <a href="contacts.php">Контакты</a>
-                <a href="admin.php" class="admin-link-btn">Админ-панель</a>
             </nav>
-            <div class="header-phone"><a href="tel:+73830000000">+7 (383) 000-00-00</a></div>
+            <div class="header-contacts">
+                <div class="header-phone">
+                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                </div>
+                <div class="header-email">
+                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                </div>
+            </div>
         </div>
     </header>
 

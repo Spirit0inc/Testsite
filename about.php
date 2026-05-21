@@ -68,29 +68,40 @@
 
     <header class="site-header">
         <div class="container header-flex">
-            <div class="logo" id="secretLogo">
-                <span class="logo-main">КОНТИНЕНТ</span>
-                <span class="logo-sub">транспортная компания</span>
-            </div>
+            <a href="index.php" class="logo-link" id="secretLogo">
+                <div class="logo">
+                    <img src="images/logo.png" alt="ТК Континент" class="logo-img">
+                    <span class="logo-main">КОНТИНЕНТ</span>
+                </div>
+            </a>
             <nav class="nav-menu">
-                <a href="index.php">Главная</a>
                 <a href="about.php">О компании</a>
                 <a href="works.php">Наши работы</a>
                 <a href="contacts.php">Контакты</a>
             </nav>
-            <div class="header-phone"><a href="tel:+73830000000">+7 (383) 000-00-00</a></div>
+            <div class="header-contacts">
+                <div class="header-phone">
+                    <a href="tel:+73830000000">📞 +7 (383) 000-00-00</a>
+                </div>
+                <div class="header-email">
+                    <a href="mailto:info@kargo-54.ru">✉️ info@kargo-54.ru</a>
+                </div>
+            </div>
         </div>
     </header>
 
     <script>
         let clickCount = 0;
         let clickTimer = null;
-        document.getElementById('secretLogo').addEventListener('click', function() {
-            clickCount++;
-            clearTimeout(clickTimer);
-            if (clickCount === 5) { window.location.href = 'admin.php'; clickCount = 0; }
-            clickTimer = setTimeout(function() { clickCount = 0; }, 1000);
-        });
+        const secretLogo = document.getElementById('secretLogo');
+        if (secretLogo) {
+            secretLogo.addEventListener('click', function() {
+                clickCount++;
+                clearTimeout(clickTimer);
+                if (clickCount === 5) { window.location.href = 'admin.php'; clickCount = 0; }
+                clickTimer = setTimeout(function() { clickCount = 0; }, 1000);
+            });
+        }
     </script>
 
     <section class="about-hero">
@@ -120,9 +131,9 @@
                     </ul>
                 </div>
                 <div>
-                    <img src="https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?w=600" alt="О компании" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
-                    <img src="https://images.pexels.com/photos/4481257/pexels-photo-4481257.jpeg?w=600" alt="Логистика" style="width: 100%; border-radius: 12px;">
-                    <img src="https://images.pexels.com/photos/6567699/pexels-photo-6567699.jpeg?w=600" alt="Перевозки" style="width: 100%; border-radius: 12px; margin-top: 20px;">
+                    <img src="https://totalenergies.com/sites/g/files/nytnzq121/files/styles/crop_landscape_ratio_9_5/public/thumbnails/image/visuel_une_total_com_0.jpg?itok=U3TeLNpt" alt="О компании" style="width: 100%; border-radius: 12px; margin-bottom: 20px;">
+                    <img src="https://t4.ftcdn.net/jpg/06/23/82/89/360_F_623828986_br5debv0sVjqw2Wc7AWOmd1qcmGKRuqt.jpg" alt="Логистика" style="width: 100%; border-radius: 12px;">
+                    <img src="https://i.pinimg.com/originals/00/f9/77/00f977b75fe12867a4e4d78d155bb5b5.jpg" alt="Перевозки" style="width: 100%; border-radius: 12px; margin-top: 20px;">
                 </div>
             </div>
 
@@ -138,16 +149,16 @@
             <div style="margin-top: 60px;">
                 <h2 class="section-title">Фотогалерея</h2>
                 <div class="gallery-grid">
-                    <div class="gallery-item" style="background-image: url('https://images.pexels.com/photos/2642652/pexels-photo-2642652.jpeg?w=600');"></div>
-                    <div class="gallery-item" style="background-image: url('https://images.pexels.com/photos/6567707/pexels-photo-6567707.jpeg?w=600');"></div>
-                    <div class="gallery-item" style="background-image: url('https://images.pexels.com/photos/3758982/pexels-photo-3758982.jpeg?w=600');"></div>
+                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/1.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/4.jpg');"></div>
+                    <div class="gallery-item" style="background-image: url('https://kargo-54.ru/image/portfolio/8.jpg');"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="site-footer">
-        <div class="container"><p>&copy; 2026 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
     </footer>
 </body>
 </html>
