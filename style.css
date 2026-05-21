@@ -480,7 +480,7 @@ select:focus {
 
 /* ========== БУРГЕР-МЕНЮ ДЛЯ ТЕЛЕФОНОВ ========== */
 .menu-toggle {
-    display: none;
+    display: none !important;
     background: none;
     border: none;
     cursor: pointer;
@@ -527,9 +527,10 @@ select:focus {
     display: block;
 }
 
+/* ТОЛЬКО НА ТЕЛЕФОНАХ (до 768px) */
 @media (max-width: 768px) {
     .menu-toggle {
-        display: block;
+        display: block !important;
         order: 2;
     }
     
