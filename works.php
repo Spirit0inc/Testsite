@@ -225,10 +225,10 @@
         </div>
     </section>
 
-    <section class="calc-section" style="background: #1D4A6A; padding: 50px 0;">
+    <section class="calc-section" style="background: #1D4A6A; padding: 30px 0; margin-top: 0;">
         <div class="container" style="text-align: center;">
-            <h2 style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;">Хотите стать нашим следующим клиентом?</h2>
-            <p style="margin-bottom: 25px; font-size: 1rem;">Оставьте заявку и получите индивидуальное предложение</p>
+            <h2 style="color: #d4af37; font-size: 1.6rem; margin-bottom: 10px;">Хотите стать нашим следующим клиентом?</h2>
+            <p style="margin-bottom: 20px; font-size: 0.95rem;">Оставьте заявку и получите индивидуальное предложение</p>
             <a href="index.php#calc" class="btn btn-orange">Рассчитать стоимость</a>
         </div>
     </section>
