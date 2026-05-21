@@ -32,10 +32,10 @@ if (file_exists($directions_file)) {
 }
 
 // Обработка CRUD-действий
-if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Сохранение изменений
-    if ($_POST['action'] === 'save') {
+    if (isset($_POST['action']) && $_POST['action'] === 'save') {
         $updated_directions = [];
         if (isset($_POST['dir']) && is_array($_POST['dir'])) {
             foreach ($_POST['dir'] as $id => $data) {
@@ -50,7 +50,7 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
         }
         
         // Добавление нового направления
-        if (!empty($_POST['new_name'])) {
+        if (!empty($_POST['new_name']) && !empty($_POST['new_price_per_kg'])) {
             $new_id = time();
             $updated_directions[] = [
                 'id' => $new_id,
@@ -66,7 +66,7 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
     }
     
     // Удаление маршрута
-    if ($_POST['action'] === 'delete' && isset($_POST['delete_id'])) {
+    if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['delete_id'])) {
         $delete_id = intval($_POST['delete_id']);
         $updated_directions = [];
         foreach ($directions as $dir) {
@@ -74,10 +74,26 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
                 $updated_directions[] = $dir;
             }
         }
-        file_put_contents($directions_file, json_encode($updated_directions, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $directions = $updated_directions;
-        $success = '🗑️ Маршрут успешно удален!';
+        
+        // Сохраняем обновленный массив
+        $result = file_put_contents($directions_file, json_encode($updated_directions, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        
+        if ($result !== false) {
+            $directions = $updated_directions;
+            $success = '🗑️ Маршрут успешно удален!';
+        } else {
+            $error = '❌ Ошибка при удалении маршрута! Проверьте права на запись.';
+        }
+        
+        // Возвращаемся на страницу без повторной отправки формы
+        header("Location: admin.php?deleted=1");
+        exit;
     }
+}
+
+// Показываем сообщение после удаления
+if (isset($_GET['deleted'])) {
+    $success = '🗑️ Маршрут успешно удален!';
 }
 ?>
 <!DOCTYPE html>
@@ -106,7 +122,7 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
         }
         .delete-btn:hover { background: #c82333; transform: scale(1.02); }
         .success-msg { background: rgba(46,204,64,0.2); border: 1px solid #2ecc40; padding: 12px; border-radius: 6px; margin-bottom: 20px; color: #2ecc40; }
-        .btn-small { padding: 5px 10px; font-size: 0.8rem; }
+        .error-msg { background: rgba(220,53,69,0.2); border: 1px solid #dc3545; padding: 12px; border-radius: 6px; margin-bottom: 20px; color: #dc3545; }
         .modal {
             display: none;
             position: fixed;
@@ -143,7 +159,7 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
         <?php if (!$is_logged_in): ?>
             <div class="admin-box" style="max-width: 400px; margin-top: 100px;">
                 <h2 style="border-left:4px solid #ff851b; padding-left: 10px; margin-bottom: 20px;">🔐 Вход в Админ-панель</h2>
-                <?php if ($error): ?><div style="color: #ff4136; margin-bottom: 15px;">❌ <?= $error ?></div><?php endif; ?>
+                <?php if ($error): ?><div class="error-msg">❌ <?= $error ?></div><?php endif; ?>
                 <form method="POST">
                     <div class="form-group">
                         <label>Введите секретный пароль:</label>
@@ -167,6 +183,10 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
                 <?php if ($success): ?>
                     <div class="success-msg"><?= $success ?></div>
                 <?php endif; ?>
+                
+                <?php if ($error): ?>
+                    <div class="error-msg"><?= $error ?></div>
+                <?php endif; ?>
 
                 <form method="POST" id="mainForm">
                     <input type="hidden" name="action" value="save">
@@ -182,28 +202,34 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($directions as $dir): ?>
+                            <?php if (empty($directions)): ?>
                                 <tr>
-                                    <td>
-                                        <input type="text" name="dir[<?= $dir['id'] ?>][name]" 
-                                               value="<?= htmlspecialchars($dir['name']) ?>" 
-                                               class="form-control-admin" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.1" name="dir[<?= $dir['id'] ?>][price_per_kg]" 
-                                               value="<?= $dir['price_per_kg'] ?>" class="form-control-admin" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" step="1" name="dir[<?= $dir['id'] ?>][price_per_m3]" 
-                                               value="<?= $dir['price_per_m3'] ?>" class="form-control-admin" required>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="delete-btn" onclick="confirmDelete(<?= $dir['id'] ?>, '<?= htmlspecialchars(addslashes($dir['name'])) ?>')">
-                                            🗑️ Удалить
-                                        </button>
-                                    </td>
+                                    <td colspan="4" style="text-align: center; color: #aaa;">Нет добавленных маршрутов</td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php foreach ($directions as $dir): ?>
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="dir[<?= $dir['id'] ?>][name]" 
+                                                   value="<?= htmlspecialchars($dir['name']) ?>" 
+                                                   class="form-control-admin" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="0.1" name="dir[<?= $dir['id'] ?>][price_per_kg]" 
+                                                   value="<?= $dir['price_per_kg'] ?>" class="form-control-admin" required>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="1" name="dir[<?= $dir['id'] ?>][price_per_m3]" 
+                                                   value="<?= $dir['price_per_m3'] ?>" class="form-control-admin" required>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="delete-btn" onclick="confirmDelete(<?= $dir['id'] ?>, '<?= htmlspecialchars(addslashes($dir['name'])) ?>')">
+                                                🗑️ Удалить
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
 
@@ -228,8 +254,8 @@ if ($is_logged_in && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acti
                     </button>
                 </form>
 
-                <!-- Форма для удаления (скрытая) -->
-                <form method="POST" id="deleteForm" style="display: none;">
+                <!-- Форма для удаления -->
+                <form method="POST" id="deleteForm">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="delete_id" id="delete_id">
                 </form>
