@@ -102,10 +102,6 @@
                 <div style="font-size: 2rem; font-weight: bold; color: #d4af37;">50+</div>
                 <div style="font-size: 0.9rem;">Единиц техники</div>
             </div>
-            <div>
-                <div style="font-size: 2rem; font-weight: bold; color: #d4af37;">15</div>
-                <div style="font-size: 0.9rem;">Регионов РФ</div>
-            </div>
         </div>
     </div>
 </section>
