@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши работы | ТК Континент</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .works-hero { background: linear-gradient(rgba(0,21,41,0.85), rgba(0,15,31,0.95)), url('https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?w=1200') center/cover; padding: 80px 0; text-align: center; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin: 50px 0; }
+        .portfolio-card { background: rgba(255,255,255,0.03); border-radius: 12px; overflow: hidden; transition: transform 0.3s; border: 1px solid rgba(212,175,55,0.1); }
+        .portfolio-card:hover { transform: translateY(-5px); border-color: #d4af37; }
+        .portfolio-img { height: 220px; background-size: cover; background-position: center; }
+        .portfolio-content { padding: 20px; }
+        .portfolio-tag { display: inline-block; background: #ff851b; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; margin-bottom: 12px; }
+        .stat-big { font-size: 2rem; font-weight: bold; color: #d4af37; }
+        .stats-mini { display: flex; gap: 30px; margin-top: 20px; justify-content: center; }
+        @media (max-width: 768px) { .portfolio-grid { grid-template-columns: 1fr; } }
+        
+        .video-section { background: #001226; padding: 60px 0; margin-top: 40px; }
+        .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px; }
+        .video-card { background: rgba(255,255,255,0.03); border-radius: 12px; overflow: hidden; }
+        .video-placeholder { height: 200px; background: linear-gradient(135deg, #001f3f, #001226); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        @media (max-width: 768px) { .video-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-flex">
+            <div class="logo" id="secretLogo">
+                <span class="logo-main">КОНТИНЕНТ</span>
+                <span class="logo-sub">транспортная компания</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.php">Главная</a>
+                <a href="about.php">О компании</a>
+                <a href="works.php">Наши работы</a>
+                <a href="contacts.php">Контакты</a>
+            </nav>
+            <div class="header-phone"><a href="tel:+73830000000">+7 (383) 000-00-00</a></div>
+        </div>
+    </header>
+
+    <script>
+        let clickCount = 0, clickTimer = null;
+        document.getElementById('secretLogo').addEventListener('click', function() {
+            clickCount++; clearTimeout(clickTimer);
+            if (clickCount === 5) { window.location.href = 'admin.php'; clickCount = 0; }
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
+        });
+    </script>
+
+    <section class="works-hero">
+        <div class="container"><h1>Наши <span class="accent-gold">работы</span></h1><p>Реальные кейсы и довольные клиенты по всей России</p></div>
+    </section>
+
+    <section style="padding: 60px 0;">
+        <div class="container">
+            <div class="stats-mini">
+                <div><div class="stat-big">500+</div><div>Выполненных перевозок</div></div>
+                <div><div class="stat-big">98%</div><div>Клиентов возвращаются</div></div>
+                <div><div class="stat-big">50+</div><div>Единиц техники</div></div>
+                <div><div class="stat-big">15</div><div>Регионов РФ</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 0 0 60px 0;">
+        <div class="container">
+            <h2 class="section-title">Примеры наших перевозок</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/2642652/pexels-photo-2642652.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Строительные материалы</span><h3>Москва → Новосибирск</h3><p>Перевозка 45 тонн строительных материалов. Доставка за 5 дней.</p><small>Клиент: ООО "СтройИнвест"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/6567707/pexels-photo-6567707.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Оборудование</span><h3>СПб → Владивосток</h3><p>Доставка промышленного оборудования через всю страну.</p><small>Клиент: Завод "ТехноПром"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/3758982/pexels-photo-3758982.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Скоропорт</span><h3>Новосибирск → Москва</h3><p>Срочная перевозка медикаментов за 48 часов.</p><small>Клиент: Аптечная сеть "Здоровье"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/4060149/pexels-photo-4060149.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Продукты питания</span><h3>Краснодар → Екатеринбург</h3><p>Рефрижератор, контроль температуры -18°C.</p><small>Клиент: ТД "Фруктовый рай"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/7694347/pexels-photo-7694347.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Мебель</span><h3>Москва → Иркутск</h3><p>Перевозка мебели для гостиничного комплекса.</p><small>Клиент: ГК "Байкал-Отель"</small></div></div>
+                <div class="portfolio-card"><div class="portfolio-img" style="background-image: url('https://images.pexels.com/photos/4283417/pexels-photo-4283417.jpeg?w=600');"></div><div class="portfolio-content"><span class="portfolio-tag">Автозапчасти</span><h3>Владивосток → Новосибирск</h3><p>Таможенное оформление, страховка груза.</p><small>Клиент: Авто-Сибирь</small></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title">Видео с наших перевозок</h2>
+            <div class="video-grid">
+                <div class="video-card"><div class="video-placeholder">🎬 Видео процесса погрузки</div><div class="portfolio-content"><h3>Погрузка оборудования</h3><small>Процесс фиксации груза</small></div></div>
+                <div class="video-card"><div class="video-placeholder">🚛 Видео процесса выгрузки</div><div class="portfolio-content"><h3>Выгрузка в Новосибирске</h3><small>Соблюдение всех норм</small></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="calc-section" style="background: #001226;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: #d4af37;">Хотите стать нашим следующим клиентом?</h2>
+            <p style="margin-bottom: 30px;">Оставьте заявку и получите индивидуальное предложение</p>
+            <a href="index.php#calc" class="btn btn-orange">Рассчитать стоимость</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container"><p>&copy; 2024 ТК «Континент» | <a href="about.php">О компании</a> | <a href="works.php">Наши работы</a> | <a href="contacts.php">Контакты</a></p></div>
+    </footer>
+</body>
+</html>
